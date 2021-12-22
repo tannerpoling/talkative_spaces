@@ -1,4 +1,4 @@
-#N canvas 953 525 958 473 12;
+#N canvas 953 0 958 473 12;
 #X obj 246 246 dac~;
 #X obj 394 47 netreceive 3000;
 #X obj 245 201 *~;
@@ -10,12 +10,14 @@
 #X obj 167 71 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 278 152 r volume;
+#X obj 176 164 readsf~;
 #X connect 1 0 3 0;
 #X connect 2 0 0 0;
 #X connect 2 0 0 1;
 #X connect 3 0 5 0;
 #X connect 3 1 4 0;
-#X connect 6 0 2 0;
+#X connect 6 0 10 0;
 #X connect 7 0 8 0;
 #X connect 8 0 6 0;
 #X connect 9 0 2 1;
+#X connect 10 0 2 0;
