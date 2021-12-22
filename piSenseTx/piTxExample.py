@@ -10,7 +10,8 @@ import adafruit_si4713
 
 # Specify the FM frequency to transmit on in kilohertz.  As the datasheet
 # mentions you can only specify 50khz steps!
-FREQUENCY_KHZ = 102300  # 102.300mhz
+#FREQUENCY_KHZ = 102300  # 102.300mhz
+FREQUENCY_KHZ = 88000
 
 # Initialize I2C bus.
 i2c = board.I2C()  # uses board.SCL and board.SDA

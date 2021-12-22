@@ -1,0 +1,3 @@
+#!/bin/bash
+echo "Starting Pd..."
+pd -nogui /home/pi/talkative_spaces/media/audioControl.pd &
