@@ -1,0 +1,21 @@
+#N canvas 953 525 958 473 12;
+#X obj 246 246 dac~;
+#X obj 394 47 netreceive 3000;
+#X obj 245 201 *~;
+#X obj 397 106 route 0 1;
+#X obj 417 181 s volume;
+#X obj 397 145 s play_audio;
+#X msg 169 109 open videoplayback.wav;
+#X obj 168 32 r play_audio;
+#X obj 167 71 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 278 152 r volume;
+#X connect 1 0 3 0;
+#X connect 2 0 0 0;
+#X connect 2 0 0 1;
+#X connect 3 0 5 0;
+#X connect 3 1 4 0;
+#X connect 6 0 2 0;
+#X connect 7 0 8 0;
+#X connect 8 0 6 0;
+#X connect 9 0 2 1;
