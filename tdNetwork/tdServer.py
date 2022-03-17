@@ -9,7 +9,7 @@ debug = False
 
 # Python TCP/IP server to be run on the Touchdesigner side.
 # Starts a server which will then accept a connection from hardcoded
-# 'address' on port = 'port' variable
+# 'address' on 'port'
 
 # Runs in a Text DAT for now, maybe change to Execute DAT once it's stable?
 
