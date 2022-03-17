@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from tdNetwork.pyClient import *
+from tdNetwork.piClient import *
 
 
 # radio tx doesn't need loop -> no threading
