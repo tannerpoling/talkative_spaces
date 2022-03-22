@@ -1,0 +1,13 @@
+2022 3 21
+- basics working pretty clean
+- next focus: animating volume response to movement, time based control in general
+  - no movement -> max volume
+    - max volume based on distance
+  - movement -> quiet for a bit UNTIL movement stops, then slowly ramps up
+    - need to define thresholds
+  - assuming all of this happens in the same loop -> time based ramping depends on period between loops
+    - TODO: determine good loop period / rate. how often can we check the distance sensor, send data to touchdesigner?
+    - idea of trying to make it all scale with the period but that sounds like more effort than it's worth
+      - ex: period of 0.1s, and we use an array of volumes to "animate" volume
+        - a 3 second animation at 0.1s per cycle = 30 values to loop through
+    - then get into thresholds, tracking, time data, etc
