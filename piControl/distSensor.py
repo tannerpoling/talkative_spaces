@@ -13,6 +13,6 @@ pdcontrol.playAudio()
 while True:
     print("Distance sensor read %.1f cm." % (dist_sensor.distance * 100))
     # pdcontrol.setVolume((dist_sensor.distance * 100 + 50) / 100)
-    sleep(1)
+    sleep(0.1)
 
     
