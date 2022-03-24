@@ -1,3 +1,32 @@
+2022 3 23
+- working on volume animation
+  - BASIC GOAL: have a volume animation play out at a determined point in time
+                (just use a timer, no need to get into distance sensor stuff)
+  - every loop cycle, talkative should ask audioControl what volume it should be using
+    - talkative: 
+      - give audioControl the current state data, and get back volume
+    - audioControl:
+      - give base audio level based on distance
+      - apply *multiplier* based on any volume animations going on
+        - 'detection' volume animation:
+          - person went from being still to moving
+            - NOTE: will likely need some sort of smoothing / thresholds here
+          - this will actually be TWO animations: quieting down at first movement,
+            and slowly getting louder at end of movement
+            - quiet down, when movement first detected:
+              1.0  0.5  0.3  0.1  0.1  0.1  0.1...   
+            - go back to normal, once movement stops
+            0.1  0.2  0.3  0.4... 1.0
+            - IDEA: just scale volume with movement? gets rid of the need for any animations...
+              - would work but effect would be way less cool...
+          - may be best to use my iterator from synth of self; a queue with a default value that doesn't go away
+          - going to have audioControl be a 'thing' -> class we can interact with
+          
+- untested: poll rate from every 0.5s to every 0.1s
+- NOTE: see if audiolazy will work on rpi... could be cool to have one radio by synth chords
+- NOTE: one idea- have volume animations stored separately, loaded into audioControl?
+- NOTE: not going to worry about multiple audio streams
+
 2022 3 21
 - basics working pretty clean
 - next focus: animating volume response to movement, time based control in general

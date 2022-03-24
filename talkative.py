@@ -2,6 +2,7 @@
 
 from tdNetwork.piClient import *
 from piControl.radioTx import *
+from piControl.audioControl import *
 from time import sleep
 from gpiozero import DistanceSensor
 # from pdControl import *
@@ -38,41 +39,59 @@ radio_power = 115 # dBuV
 # GPIO pins used on rpi (unverified)
 dist_echo_pin = 22
 dist_trig_pin = 27
-poll_delay = 0.5   # delay between dist sensor polls
+poll_delay = 0.1   # delay between dist sensor polls
 
 # network config (unverified)
 server_hostname = 'TAN-LAP'
 server_port = 7000
+
+
 # ************************
 
 
 
-# ***** DEBUG VARS *****
+# ***** DEBUG/SYSTEM VARS *****
 en_server = False
+
+first_loop = True
+last_dist = None
+cur_dist = None
+delta_dist = None
+
+# distance in cm
+def get_distance(dist_sensor):
+    return dist_sensor.distance * 100
 
 
 
 # ***** START *****
 
-# init radio tx
+if __name__ == "__main__":
+    # init radio tx
 
 
-# init distance sensor
-dist_sensor = DistanceSensor(echo=22, trigger=27, max_distance=4)
+    # init distance sensor
+    dist_sensor = DistanceSensor(echo=22, trigger=27, max_distance=4)
 
-# init server
-if (en_server):
-    client = tdClient(server_hostname, server_port)
-    if (not client.initialize()):
-        print("TCP client failed to connect")
-        quit()
+    # init server
+    if (en_server):
+        client = tdClient(server_hostname, server_port)
+        if (not client.initialize()):
+            print("TCP client failed to connect")
+            quit()
 
-# init radio
-pi_radio = radio_init(radio_freq, radio_pin, radio_power)
-print("getting radio status")
-get_radio_status(pi_radio)
+    # init radio
+    pi_radio = radio_init(radio_freq, radio_pin, radio_power)
+    print("getting radio status")
+    get_radio_status(pi_radio)
 
-# start main loop
+    # init system variables
+    last_dist = get_distance(dist_sensor)
+    delta_dist = 0
+
+    # start main loop
+    while(True):
+        # stuff
 
 
 
