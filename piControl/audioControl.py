@@ -58,7 +58,8 @@ class AudioControl:
 
     # given the current movement state, return the current volume
     def getAudioUpdate(self):
-        self.cur_volume = next(self.vol_control_iter)
+        vol_iter = iter(self.vol_control_iter)
+        self.cur_volume = next(vol_iter)
         return self.cur_volume
 
     def updateDistState(self, cur_dist):
