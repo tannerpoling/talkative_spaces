@@ -6,7 +6,7 @@ from collections import deque
 class SynthIter:
     # an interator that continually returns a 'base' value, until given a sequence of values
 
-    def __init__(self, initValue = 0.15):
+    def __init__(self, initValue = 1.0):
         self.initValue = initValue
         self.q = deque()
         self.q.append(initValue)

@@ -80,7 +80,7 @@ if __name__ == "__main__":
 
 # COMMENT FROM HERE TO TOP
 
-def radio_init(radio_freq, radio_pin, radio_power):
+def radioInit(radio_freq, radio_pin, radio_power):
     i2c = board.I2C()
     si_reset = digitalio.DigitalInOut(radio_pin)
     si4713 = adafruit_si4713.SI4713(i2c, reset=si_reset, timeout_s=0.5)
@@ -100,6 +100,6 @@ def radio_init(radio_freq, radio_pin, radio_power):
     print("Radio setup successful!")
     return si4713
 
-def get_radio_status(si4713):
+def getRadioStatus(si4713):
     print("Input level: {0} dBfs".format(si4713.input_level))
     print("ASQ status: 0x{0:02x}".format(si4713.audio_signal_status))

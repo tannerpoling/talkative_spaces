@@ -1,3 +1,24 @@
+2022 3 30
+- just realized i never used the iterator functionality of synth iterator in synthofself; everything was just continuously modified in "real time";
+  never appended a bunch of values and cycled through them
+  - way different here since I'm actually doing volume animations
+- structure is written!
+  - calling append on our synth iterator *should* change the base / default value of the iterator
+- nothing is tested yet though
+
+
+2022 3 28
+- volume animation state change algorithm (definitely wrote this down before somewhere else)
+  - init: no movement, going into start of quieting animation
+    - delta_dist = 0, state = 0 -> stay in current state, volume multiplier = 1
+    - delta_dist != 0, state = 0 -> movement, quiet down and change state to 1. volume multiplier decrease sharply and hold low
+    - delta_dist = 0, state = 1 -> standing still, start getting louder and change state to 2. volume multiplier increase slowly and hold at 1
+    - delta_dist != 0, state = 1 -> movement, continue holding volume multiplier low
+    - delta_dist = 0, state = 2 -> standing still, keep gettng louder
+      - once volume = 1 again, go back to state 0
+    - delta_dist != 0, state = 2 -> movement again, go back to state 1. volume multiplier decrease sharply based on current volume and hold low
+    - need some sort of timer and threshold values for delta_dist, count how many times person is over the threshold
+
 2022 3 23
 - working on volume animation
   - BASIC GOAL: have a volume animation play out at a determined point in time
