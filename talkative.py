@@ -64,14 +64,14 @@ def getDistance(dist_sensor):
 
 
 # ***** START *****
-
+print("0")
 if __name__ == "__main__":
     # init radio tx
 
-
+    print("1")
     # init distance sensor
     dist_sensor = DistanceSensor(echo=22, trigger=27, max_distance=4)
-
+    print("2")
     # init server
     if (en_server):
         client = tdClient(server_hostname, server_port)
@@ -80,19 +80,23 @@ if __name__ == "__main__":
             quit()
 
     # init radio
+    print("3")
     pi_radio = radioInit(radio_freq, radio_pin, radio_power)
     print("getting radio status")
     getRadioStatus(pi_radio)
+    print("4")
 
     # TODO: start playing audio
 
     # init system variables
     cur_dist = getDistance(dist_sensor)
     first = True
+    loop = 1
 
     sleep(poll_delay)
     # start main loop
     while(True):
+        print("loop: " + str(loop))
         if (first):
             # init distance variable stuff
             first = False
