@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
 
+from talkative_spaces.piControl.volControlTest import translate_inverse
 from tdNetwork.piClient import *
 from piControl.radioTx import *
 import piControl.audioControl as AC
 from time import sleep
 from gpiozero import DistanceSensor
 # from pdControl import *
-import board
+import board 
+import alsaaudio # for mixer control
+from playsound import playsound # to play audio files easily
 
 # main file: everything is run from here
 
@@ -29,7 +32,8 @@ import board
 # * this file should tie all modules together + contain system-level config
 # * worry about volume, etc. once know how puredata will work
 
-# ***** CONFIG VARS *****
+
+# ***** CONFIG VARS / CONSTANTS *****
 # radio config
 radio_freq = 91000   # 91.000 mhz
 radio_pin = board.D5 # pi digital pin 5
@@ -44,6 +48,12 @@ poll_delay = 0.1   # delay between dist sensor polls
 server_hostname = 'TAN-LAP'
 server_port = 7000
 
+# misc constants
+dist_min = 2
+dist_max = 60
+vol_min = 10
+vol_max = 100
+audio_fn = "media/abom.mp3"
 # ************************
 
 # ***** DEBUG/SYSTEM VARS *****
@@ -53,7 +63,9 @@ prev_dist = None
 cur_dist = None
 delta_dist = None
 audio_control = None
-cur_volume = 1.0
+base_volume = 0
+volume_multiplier = 0
+output_volume = 0
 # ************************
 
 
@@ -66,9 +78,7 @@ def getDistance(dist_sensor):
 # ***** START *****
 print("0")
 if __name__ == "__main__":
-    # init radio tx
 
-    print("1")
     # init distance sensor
     dist_sensor = DistanceSensor(echo=22, trigger=27, max_distance=4)
     print("2")
@@ -86,7 +96,9 @@ if __name__ == "__main__":
     getRadioStatus(pi_radio)
     print("4")
 
-    # TODO: start playing audio
+    # init audio
+    mixer = alsaaudio.Mixer()
+    playsound(audio_fn)
 
     # init system variables
     cur_dist = getDistance(dist_sensor)
@@ -106,12 +118,18 @@ if __name__ == "__main__":
             audio_control = AC.AudioControl()
             sleep(poll_delay)
         
-        # update the distance state so that audio control can tell us what the current volume should be
+        # check and update movement state
         cur_dist = getDistance(dist_sensor)
         audio_control.updateDistState(cur_dist)
 
-        # update output volume
-        cur_volume = cur_volume * audio_control.getAudioUpdate();
+        # update output volume:
+        #  base_volume is controlled by position
+        #  volume_multiplier is controlled by movement
+        #  output_volume is the final output to our radio
+        base_volume = int(translate_inverse(cur_dist, dist_min, dist_max, vol_min, vol_max))
+        volume_multiplier = audio_control.getAudioUpdate();
+        output_volume = base_volume * volume_multiplier;
+        mixer
         
         sleep(poll_delay)
 

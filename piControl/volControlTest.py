@@ -4,6 +4,7 @@ import alsaaudio
 # from piControl.distSensor import *
 from time import sleep
 from gpiozero import DistanceSensor
+from playsound import playsound # to play audio files easily
 
 def translate(value, leftMin, leftMax, rightMin, rightMax):
     # If value outside of range, apply ceiling
@@ -25,7 +26,9 @@ def translate_inverse(value, leftMin, leftMax, rightMin, rightMax):
 
 dist_sensor = DistanceSensor(echo=22, trigger=27, max_distance=4)
 
+audio_fn = "../media/abom.mp3"
 m = alsaaudio.Mixer()
+playsound(audio_fn)
 current_volume = m.getvolume()
 
 while(1):

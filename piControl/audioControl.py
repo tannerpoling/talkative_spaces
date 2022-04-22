@@ -2,6 +2,8 @@ import synthIter as sIter
 
 # This audio control is programmed to react to movement by quieting down the volume
 # source. 
+# Volume control is done using mulitipliers! audioControl will return a number from 0.0 - 1.0
+# which is then multiplied by your base volume
 
 # Translate 'value' from 'left' range to 'right' range
 def translate(value, leftMin, leftMax, rightMin, rightMax):
@@ -56,7 +58,7 @@ class AudioControl:
         self.animation_state = 0
         self.change_state_counter = 0
 
-    # given the current movement state, return the current volume
+    # given the current movement state, return the current volume multiplier
     def getAudioUpdate(self):
         vol_iter = iter(self.vol_control_iter)
         self.cur_volume = next(vol_iter)
@@ -103,5 +105,4 @@ class AudioControl:
                     self.animation_state = 0
                 else:
                     self.change_state_counter += 1
-            # case 4:
-            #     # second part is done 
+
