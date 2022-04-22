@@ -13,7 +13,7 @@ if __name__ == "__main__":
     # Specify the FM frequency to transmit on in kilohertz.  As the datasheet
     # mentions you can only specify 50khz steps!
     #FREQUENCY_KHZ = 102300  # 102.300mhz
-    FREQUENCY_KHZ = 91000
+    FREQUENCY_KHZ = 88500
 
     # Initialize I2C bus.
     i2c = board.I2C()  # uses board.SCL and board.SDA

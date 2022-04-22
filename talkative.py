@@ -9,7 +9,7 @@ from gpiozero import DistanceSensor
 # from pdControl import *
 import board 
 import alsaaudio # for mixer control
-from playsound import playsound # to play audio files easily
+import pygame # for playing audio file
 
 # main file: everything is run from here
 
@@ -49,11 +49,11 @@ server_hostname = 'TAN-LAP'
 server_port = 7000
 
 # misc constants
-dist_min = 2
+dist_min = 15
 dist_max = 60
-vol_min = 10
+vol_min = 0
 vol_max = 100
-audio_fn = "media/abom.mp3"
+audio_fn = "media/abomunist.wav"
 # ************************
 
 # ***** DEBUG/SYSTEM VARS *****
@@ -98,7 +98,10 @@ if __name__ == "__main__":
 
     # init audio
     mixer = alsaaudio.Mixer()
-    playsound(audio_fn)
+    pygame.mixer.init()
+    audio_out = mygame.mixer.Sound(audio_fn)
+    audio_out.play()
+    audio_out.set_volume(output_volume)
 
     # init system variables
     cur_dist = getDistance(dist_sensor)
@@ -129,7 +132,7 @@ if __name__ == "__main__":
         base_volume = int(translate_inverse(cur_dist, dist_min, dist_max, vol_min, vol_max))
         volume_multiplier = audio_control.getAudioUpdate();
         output_volume = base_volume * volume_multiplier;
-        mixer
+        audio_out.set_volume(output_volume)
         
         sleep(poll_delay)
 
